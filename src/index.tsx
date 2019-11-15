@@ -39,7 +39,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       showLoader: false,
       pullToRefreshThresholdBreached: false,
     };
-
+    this._mounted = false;
     this.throttledOnScrollListener = throttle(150, this.onScrollListener).bind(
       this
     );
@@ -52,6 +52,7 @@ export default class InfiniteScroll extends Component<Props, State> {
   private _scrollableNode: HTMLElement | undefined | null;
   private el: HTMLElement | undefined | Window & typeof globalThis;
   private _infScroll: HTMLDivElement | undefined;
+  private _mounted: boolean;
   private lastScrollTop = 0;
   private actionTriggered = false;
   private _pullDown: HTMLDivElement | undefined;
@@ -66,6 +67,7 @@ export default class InfiniteScroll extends Component<Props, State> {
   private maxPullDownDistance = 0;
 
   componentDidMount() {
+    this._mounted = true;
     this._scrollableNode = this.getScrollableTarget();
     this.el = this.props.height
       ? this._infScroll
@@ -113,6 +115,7 @@ export default class InfiniteScroll extends Component<Props, State> {
   }
 
   componentWillUnmount() {
+    this._mounted = true;
     if (this.el) {
       this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 
@@ -252,6 +255,9 @@ export default class InfiniteScroll extends Component<Props, State> {
   }
 
   onScrollListener = (event: MouseEvent) => {
+    if(!this._mounted) {
+      return;
+    }
     if (typeof this.props.onScroll === 'function') {
       // Execute this callback in next tick so that it does not affect the
       // functionality of the library.
