@@ -48,7 +48,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     this.onEnd = this.onEnd.bind(this);
   }
 
-  private throttledOnScrollListener: (e: MouseEvent) => void;
+  private throttledOnScrollListener: any;
   private _scrollableNode: HTMLElement | undefined | null;
   private el: HTMLElement | undefined | Window & typeof globalThis;
   private _infScroll: HTMLDivElement | undefined;
@@ -72,9 +72,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       : this._scrollableNode || window;
 
     if (this.el) {
-      this.el.addEventListener('scroll', e =>
-        this.throttledOnScrollListener(e as MouseEvent)
-      );
+      this.el.addEventListener('scroll', this.throttledOnScrollListener);
     }
 
     if (
@@ -116,9 +114,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentWillUnmount() {
     if (this.el) {
-      this.el.removeEventListener('scroll', e =>
-        this.throttledOnScrollListener(e as MouseEvent)
-      );
+      this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 
       if (this.props.pullDownToRefresh) {
         this.el.removeEventListener('touchstart', this.onStart);
