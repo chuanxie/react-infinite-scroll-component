@@ -11,6 +11,7 @@ describe('React Infinite Scroll Component', () => {
         dataLength={4}
         loader={'Loading...'}
         hasMore={false}
+        unmount={false}
         next={() => {}}
       >
         <div />
@@ -28,6 +29,7 @@ describe('React Infinite Scroll Component', () => {
         loader={'Loading...'}
         className="custom-class"
         hasMore={false}
+        unmount={false}
         next={() => {}}
       >
         <div />
@@ -42,6 +44,7 @@ describe('React Infinite Scroll Component', () => {
         dataLength={4}
         loader={'Loading...'}
         hasMore={false}
+        unmount={false}
         next={() => {}}
       >
         <div className="child" />
@@ -61,6 +64,7 @@ describe('React Infinite Scroll Component', () => {
         loader={'Loading...'}
         height={100}
         hasMore={false}
+        unmount={false}
         next={() => {}}
       >
         <div />
@@ -85,6 +89,7 @@ describe('React Infinite Scroll Component', () => {
           dataLength={4}
           loader={'Loading...'}
           hasMore={false}
+          unmount={false}
           scrollThreshold={0}
           next={() => {}}
         >
@@ -106,6 +111,7 @@ describe('React Infinite Scroll Component', () => {
           dataLength={4}
           loader={'Loading...'}
           hasMore={true}
+          unmount={false}
           scrollThreshold={0}
           next={() => {}}
           height={100}
@@ -127,6 +133,7 @@ describe('React Infinite Scroll Component', () => {
     const { queryByText } = render(
       <InfiniteScroll
         dataLength={4}
+        unmount={false}
         loader={'Loading...'}
         endMessage={'Reached end.'}
         hasMore={false}
@@ -142,6 +149,7 @@ describe('React Infinite Scroll Component', () => {
     const { container } = render(
       <InfiniteScroll
         hasMore={true}
+        unmount={false}
         dataLength={10}
         next={() => {}}
         loader={<div>Loading...</div>}
