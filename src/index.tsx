@@ -116,6 +116,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentWillUnmount() {
     this._mounted = false;
+    console.log('unmounting')
     if (this.el) {
       this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 
@@ -133,6 +134,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   UNSAFE_componentWillReceiveProps(props: Props) {
     // do nothing when dataLength and key are unchanged
+    if (!this._mounted) return;
     if (
       this.props.key === props.key &&
       this.props.dataLength === props.dataLength
